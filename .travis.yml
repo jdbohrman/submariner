@@ -19,7 +19,9 @@ after_success:
   - if [[ "${CHANGED_FILES_PR[@]}" =~ "scripts/kind-e2e/e2e.sh" ]]; then
       echo "scripts/kind-e2e/e2e.sh was modified, testing recurring run on already deployed infrastructure.";
       make e2e status=keep deploytool=operator;
-    fi
+    fi;
+    echo "Testing cleaning up clusters";
+    make e2e status=clean
 deploy:
   - provider: script
     script: bash scripts/release
